@@ -1,0 +1,50 @@
+.wrapper {
+    display: block;
+}
+
+.title {
+    font: var(--font-l);
+    color: var(--color-primary);
+}
+
+.text {
+    font: var(--font-m);
+    color: var(--color-secondary);
+    margin-top: 12px;
+}
+
+.error {
+    .title {
+        color: var(--error);
+    }
+
+    .text {
+        color: var(--error);
+    }
+}
+
+.clear {
+    .title {
+        color: inherit;
+    }
+}
+
+.small {
+    .title {
+        font: var(--font-l);
+    }
+
+    .text {
+        font: var(--font-m)
+    }
+}
+
+.large {
+    .title {
+        font: var(--font-xl);
+    }
+
+    .text {
+        font: var(--font-l)
+    }
+}

@@ -1,0 +1,23 @@
+.input {
+    padding: 15px 20px;
+    border-radius: 2px;
+    border: 1px solid var(--color-inverted);
+    outline: none;
+    font: var(--font-m);
+
+    &:focus {
+        transition: box-shadow 0.2s ease;
+        box-shadow: 0 1px 23px -8px var(--color-inverted);
+    }
+
+    &.readonly {
+        color: var(--hint-color);
+        background: inherit;
+        opacity: .7;
+        cursor: auto;
+    }
+
+    &::placeholder {
+        color: var(--hint-color);
+    }
+}

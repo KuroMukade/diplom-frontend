@@ -1,0 +1,25 @@
+.dark,
+.light {
+    background-color: inherit;
+}
+
+.wrapper {
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.themeName {
+    margin-left: 12px;
+
+    &.themeLight {
+        color: var(--color-main);
+    }
+
+    &.themeDark {
+        color: var(--color-main);
+    }
+}
