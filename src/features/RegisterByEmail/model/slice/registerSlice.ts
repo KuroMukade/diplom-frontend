@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { LoginSchema } from '../types/loginSchema';
-import { loginByEmail } from '../services/loginByEmail/loginByEmail';
+import type { RegisterSchema } from '../types/registerSchema';
+import { registerByEmail } from '../services/registerByEmail/registerByEmail';
 
-const initialState: LoginSchema = {
+const initialState: RegisterSchema = {
   email: '',
   password: '',
   isLoading: false,
 };
 
-export const loginSlice = createSlice({
-  name: 'login',
+export const registerSlice = createSlice({
+  name: 'register',
   initialState,
   reducers: {
     setEmail: (state, action: PayloadAction<string>) => {
@@ -21,19 +21,19 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginByEmail.pending, (state) => {
+      .addCase(registerByEmail.pending, (state) => {
         state.error = undefined;
         state.isLoading = true;
       })
-      .addCase(loginByEmail.fulfilled, (state) => {
+      .addCase(registerByEmail.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(loginByEmail.rejected, (state, action) => {
+      .addCase(registerByEmail.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { actions: loginActions } = loginSlice;
-export const { reducer: loginReducer } = loginSlice;
+export const { actions: registerActions } = registerSlice;
+export const { reducer: registerReducer } = registerSlice;

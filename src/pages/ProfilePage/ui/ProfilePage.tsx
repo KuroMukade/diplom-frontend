@@ -40,25 +40,20 @@ const ProfilePage: FC = () => {
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileReadonly);
 
-  const onChangeUsername = useCallback((value?: string) => {
-    dispatch(profileActions.updateProfile({ username: value || '' }));
+  const onChangeEmail = useCallback((value?: string) => {
+    dispatch(profileActions.updateProfile({ email: value || '' }));
   }, [dispatch]);
 
-  const onChangeFirstname = useCallback((value?: string) => {
-    dispatch(profileActions.updateProfile({ firstname: value || '' }));
-  }, [dispatch]);
-
-  const onChangeLastname = useCallback((value?: string) => {
-    dispatch(profileActions.updateProfile({ lastname: value || '' }));
+  const onChangePassword = useCallback((value?: string) => {
+    dispatch(profileActions.updateProfile({ password: value || '' }));
   }, [dispatch]);
 
   return (
       <div className={classNames(styles.wrapper, {}, [])}>
           <ProfielPageHeader />
           <ProfileCard
-              onChangeUsername={onChangeUsername}
-              onChangeFirstname={onChangeFirstname}
-              onChangeLastname={onChangeLastname}
+              onChangeEmail={onChangeEmail}
+              onChangePassword={onChangePassword}
               isLoading={isLoading}
               error={error}
               data={data}

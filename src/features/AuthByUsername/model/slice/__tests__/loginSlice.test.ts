@@ -1,13 +1,13 @@
 import { LoginSchema } from '../../types/loginSchema';
 import { loginActions, loginReducer } from '../loginSlice';
-import { loginByUsername } from '../../services/loginByUsername/loginByUsername';
+import { loginByEmail } from '../../services/loginByEmail/loginByEmail';
 
 describe('loginSlice.test', () => {
   test('test set username', () => {
-    const state: DeepPartial<LoginSchema> = { username: '123' };
+    const state: DeepPartial<LoginSchema> = { email: '123' };
     expect(loginReducer(
         state as LoginSchema,
-        loginActions.setUsername('123'),
+        loginActions.setEmail('123'),
     )).toEqual({ username: '123' });
   });
 

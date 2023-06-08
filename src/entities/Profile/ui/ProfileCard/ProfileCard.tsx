@@ -16,9 +16,8 @@ interface ProfileCardProps {
     isLoading?: boolean;
     error?: string;
     readonly?: boolean;
-    onChangeUsername: (value?: string) => void;
-    onChangeLastname: (value?: string) => void;
-    onChangeFirstname: (value?: string) => void;
+    onChangePassword: (value?: string) => void;
+    onChangeEmail: (value?: string) => void;
 }
 
 export const ProfileCard: FC<ProfileCardProps> = ({
@@ -27,9 +26,8 @@ export const ProfileCard: FC<ProfileCardProps> = ({
   isLoading,
   error,
   readonly = false,
-  onChangeLastname,
-  onChangeFirstname,
-  onChangeUsername,
+  onChangePassword,
+  onChangeEmail,
 }) => {
   const { t } = useTranslation('profile');
 
@@ -61,26 +59,16 @@ export const ProfileCard: FC<ProfileCardProps> = ({
                   <span className={styles.inputText}>{t('Ник')}</span>
                   <Input
                       className={styles.input}
-                      value={data?.username}
+                      value={data?.email}
                       readonly={readonly}
-                      onChange={onChangeUsername}
+                      onChange={onChangeEmail}
                   />
               </div>
               <div className={styles.inputWrapper}>
                   <span className={styles.inputText}>{t('Имя')}</span>
                   <Input
-                      onChange={onChangeFirstname}
+                      onChange={onChangePassword}
                       className={styles.input}
-                      value={data?.firstname}
-                      readonly={readonly}
-                  />
-              </div>
-              <div className={styles.inputWrapper}>
-                  <span className={styles.inputText}>{t('Фамилия')}</span>
-                  <Input
-                      className={styles.input}
-                      value={data?.lastname}
-                      onChange={onChangeLastname}
                       readonly={readonly}
                   />
               </div>

@@ -1,17 +1,17 @@
 import { StateSchema } from 'app/providers/StoreProvider';
-import { getLoginUsername } from '../getLoginUsername';
+import { getLoginEmail } from '../getLoginEmail';
 
 describe('getLoginPassword.test', () => {
   test('Test with state value. Should return empty string', () => {
     const state: DeepPartial<StateSchema> = {
       loginForm: {
-        username: '',
+        email: '',
       },
     };
-    expect(getLoginUsername(state as StateSchema)).toEqual('');
+    expect(getLoginEmail(state as StateSchema)).toEqual('');
   });
   test('Test with empty state. Should return empty string', () => {
     const state: DeepPartial<StateSchema> = {};
-    expect(getLoginUsername(state as StateSchema)).toEqual('');
+    expect(getLoginEmail(state as StateSchema)).toEqual('');
   });
 });

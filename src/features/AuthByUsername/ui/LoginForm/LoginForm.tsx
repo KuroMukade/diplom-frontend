@@ -1,23 +1,23 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { classNames } from 'shared/lib/classNames';
 
-import { Input } from 'shared/ui/Input/Input';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
-
-import { useTranslation } from 'react-i18next';
-
-import { useSelector } from 'react-redux';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { Input } from 'shared/ui/Input/Input';
 
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { type ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
-import { loginActions, loginReducer } from '../../model/slice/loginSlice';
-import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
-import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
+import { getLoginEmail } from '../../model/selectors/getLoginEmail/getLoginEmail';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
+
+import { loginActions, loginReducer } from '../../model/slice/loginSlice';
+import { loginByEmail } from '../../model/services/loginByEmail/loginByEmail';
 
 import styles from './LoginForm.module.scss';
 
@@ -35,15 +35,15 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
   const dispatch = useAppDispatch();
 
-  const username = useSelector(getLoginUsername);
+  const email = useSelector(getLoginEmail);
   const password = useSelector(getLoginPassword);
   const isLoading = useSelector(getLoginIsLoading);
   const error = useSelector(getLoginError);
 
   useDynamicModuleLoader('loginForm', initialReducers, true);
 
-  const onChangeUsername = useCallback((value: string) => {
-    dispatch(loginActions.setUsername(value));
+  const onChangeEmail = useCallback((value: string) => {
+    dispatch(loginActions.setEmail(value));
   }, [dispatch]);
 
   const onChangePassword = useCallback((value: string) => {
@@ -51,11 +51,11 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
   }, [dispatch]);
 
   const onLoginClick = useCallback(async () => {
-    const result = await dispatch(loginByUsername({ username, password }));
+    const result = await dispatch(loginByEmail({ email, password }));
     if (result.meta.requestStatus === 'fulfilled') {
       onSuccess?.();
     }
-  }, [dispatch, onSuccess, password, username]);
+  }, [dispatch, onSuccess, password, email]);
 
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
@@ -65,9 +65,9 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
               <Input
                   tabIndex={-1}
                   className={styles.username}
-                  value={username}
-                  placeholder={t('Имя')}
-                  onChange={onChangeUsername}
+                  value={email}
+                  placeholder={t('Почта')}
+                  onChange={onChangeEmail}
                   type="text"
               />
               <Input

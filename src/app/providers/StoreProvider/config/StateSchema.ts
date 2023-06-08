@@ -7,11 +7,13 @@ import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import { Dispatch, CombinedState } from 'redux';
 import { NavigateOptions, To } from 'react-router-dom';
+import { RegisterSchema } from 'features/RegisterByEmail';
 
 export interface StateSchema {
     user: UserSchema;
     // Async reducers
     loginForm?: LoginSchema;
+    registerForm?: RegisterSchema;
     profile?: ProfileSchema;
 }
 

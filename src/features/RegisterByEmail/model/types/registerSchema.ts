@@ -1,4 +1,4 @@
-export interface LoginSchema {
+export interface RegisterSchema {
     email: string;
     password: string;
     isLoading: boolean;
