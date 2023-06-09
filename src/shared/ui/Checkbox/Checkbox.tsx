@@ -19,6 +19,7 @@ export const Checkbox = memo(({ className, isChecked, onSwitch }: CheckboxProps)
         onClick={() => onSwitch?.()}
     >
         {isChecked && (
+        // eslint-disable-next-line i18next/no-literal-string
         <img className={classNames(styles.hoverIcon)} src={checkbox} alt="check" />
         )}
     </button>

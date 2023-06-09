@@ -8,6 +8,8 @@ import { Loader } from 'shared/ui/Loader/Loader';
 
 import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
 import { TodoItem } from 'entities/Todo';
+import { Text } from 'shared/ui/Text/Text';
+import { useTranslation } from 'react-i18next';
 import { fetchTodoListData } from '../models/services/fetchTodoListData/fetchTodoListData';
 import { getTodoListData } from '../models/selectors/getTodoListData/getTodoListData';
 import { getTodoListIsLoading } from '../models/selectors/getTodoListIsLoading/getTodoListIsLoading';
@@ -15,8 +17,6 @@ import { getTodoListError } from '../models/selectors/getTodoListError/getTodoLi
 
 import styles from './TodoList.module.scss';
 import { todoListReducer } from '../models/slice/todoListSlice';
-import { Text } from 'shared/ui/Text/Text';
-import { useTranslation } from 'react-i18next';
 
 const reducers: ReducersList = {
   todoList: todoListReducer,
@@ -27,7 +27,7 @@ interface TodoListProps {
 }
 
 export const TodoList: FC<TodoListProps> = ({ className }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   useDynamicModuleLoader('todoList', reducers, false);
 
   const dispatch = useAppDispatch();

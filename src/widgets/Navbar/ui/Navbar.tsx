@@ -12,6 +12,7 @@ import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
 import { classNames } from 'shared/lib/classNames';
 
 import { RegisterModal } from 'features/RegisterByEmail';
+import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -43,7 +44,10 @@ export const Navbar = ({ className }: NavbarProps) => {
   if (authData) {
     return (
         <div className={classNames(styles.navbar, {}, [className])}>
-            <img className={styles.logo} src={logo} alt="taskmate-logo" />
+            <Link to="/">
+                {/* eslint-disable-next-line i18next/no-literal-string */}
+                <img className={styles.logo} src={logo} alt="taskmate-logo" />
+            </Link>
             <Button
                 growthColor={GrowthColor.PRIMARY}
                 theme={ThemeButton.OUTLINE}
@@ -59,7 +63,10 @@ export const Navbar = ({ className }: NavbarProps) => {
   return (
       <div className={classNames(styles.navbar, {}, [className])}>
           <div className={styles.logo}>
-              <img src={logo} alt="taskmate-logo" />
+              <Link to="/">
+                  {/* eslint-disable-next-line i18next/no-literal-string */}
+                  <img src={logo} alt="taskmate-logo" />
+              </Link>
           </div>
           <div className={styles.btns}>
               <Button
