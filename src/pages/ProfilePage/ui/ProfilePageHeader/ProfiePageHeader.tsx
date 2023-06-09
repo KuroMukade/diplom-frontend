@@ -4,7 +4,7 @@ import { Text, TextSize } from 'shared/ui/Text/Text';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { getProfileReadonly, profileActions } from 'entities/Profile';
+import { getProfileReadonly, profileActions, updateProfileData } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import styles from './ProfiePageHeader.module.scss';
 
@@ -13,8 +13,6 @@ interface ProfilePageHeaderProps {}
 const ProfilePageHeader: FC<ProfilePageHeaderProps> = () => {
   const readonly = useSelector(getProfileReadonly);
 
-  console.log(readonly);
-
   const dispatch = useAppDispatch();
 
   const onEdit = useCallback(() => {
@@ -22,7 +20,11 @@ const ProfilePageHeader: FC<ProfilePageHeaderProps> = () => {
   }, [dispatch]);
 
   const onCancelEdit = useCallback(() => {
-    dispatch(profileActions.setReadonly(true));
+    dispatch(profileActions.cancelEdit());
+  }, [dispatch]);
+
+  const onSave = useCallback(() => {
+    dispatch(updateProfileData());
   }, [dispatch]);
 
   const { t } = useTranslation('profile');
@@ -38,9 +40,14 @@ const ProfilePageHeader: FC<ProfilePageHeaderProps> = () => {
                   {t('Редактировать профиль')}
               </Button>
           ) : (
-              <Button onClick={onCancelEdit}>
-                  {t('Отмена')}
-              </Button>
+              <div className={styles.optionsBtns}>
+                  <Button onClick={onCancelEdit}>
+                      {t('Отмена')}
+                  </Button>
+                  <Button theme={ThemeButton.OUTLINE} growthColor={GrowthColor.SECONDARY} onClick={onSave}>
+                      {t('Сохранить')}
+                  </Button>
+              </div>
           )}
       </div>
   );

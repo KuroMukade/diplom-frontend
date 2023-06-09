@@ -14,7 +14,7 @@ export const registerByEmail = createAsyncThunk<User, registerByEmailProps, Thun
   async (registerData, thunkApi) => {
     const { dispatch, extra, rejectWithValue } = thunkApi;
     try {
-      const response = await extra.api.post<User>('/register', registerData);
+      const response = await extra.api.post<User>('/registration', registerData);
       if (!response.data) {
         throw new Error();
       }

@@ -8,6 +8,8 @@ import { LoginSchema } from 'features/AuthByUsername';
 import { Dispatch, CombinedState } from 'redux';
 import { NavigateOptions, To } from 'react-router-dom';
 import { RegisterSchema } from 'features/RegisterByEmail';
+import { TodoSchema } from 'entities/Todo';
+import { TodoListSchema } from 'widgets/TodoList';
 
 export interface StateSchema {
     user: UserSchema;
@@ -15,6 +17,8 @@ export interface StateSchema {
     loginForm?: LoginSchema;
     registerForm?: RegisterSchema;
     profile?: ProfileSchema;
+    todo?: TodoSchema;
+    todoList?: TodoListSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
@@ -38,4 +42,5 @@ export interface ThunkConfig<T> {
     rejectValue: T;
     extra: ThunkExtraArg;
     dispatch?: Dispatch;
+    state: StateSchema;
 }

@@ -9,6 +9,7 @@ import { getUserAuthData, userActions } from 'entities/User';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
 import { classNames } from 'shared/lib/classNames';
 
+import { RegisterModal } from 'features/RegisterByEmail';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -19,12 +20,17 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { t } = useTranslation();
 
   const [isAuthOpen, setAuthOpen] = useState(false);
+  const [isRegisterOpen, setRegisterOpen] = useState(false);
 
   const dispatch = useDispatch();
 
   const authData = useSelector(getUserAuthData);
 
-  const onToggleModal = useCallback(() => {
+  const onToggleRegister = useCallback(() => {
+    setRegisterOpen((prev) => !prev);
+  }, []);
+
+  const onToggleAuth = useCallback(() => {
     setAuthOpen((prev) => !prev);
   }, []);
 
@@ -35,7 +41,14 @@ export const Navbar = ({ className }: NavbarProps) => {
   if (authData) {
     return (
         <div className={classNames(styles.navbar, {}, [className])}>
-            <Button theme={ThemeButton.OUTLINE} onClick={onLogout}>{t('Выйти')}</Button>
+            <Button
+                growthColor={GrowthColor.PRIMARY}
+                theme={ThemeButton.OUTLINE}
+                onClick={onLogout}
+            >
+                {t('Выйти')}
+
+            </Button>
         </div>
     );
   }
@@ -43,12 +56,19 @@ export const Navbar = ({ className }: NavbarProps) => {
   return (
       <div className={classNames(styles.navbar, {}, [className])}>
           <Button
+              theme={ThemeButton.FILL}
+              onClick={onToggleRegister}
+          >
+              {t('Регистрация')}
+          </Button>
+          <Button
               theme={ThemeButton.OUTLINE}
-              onClick={onToggleModal}
+              onClick={onToggleAuth}
           >
               {t('Вход')}
           </Button>
-          <LoginModal isOpen={isAuthOpen} onClose={onToggleModal} />
+          <LoginModal isOpen={isAuthOpen} onClose={onToggleAuth} />
+          <RegisterModal isOpen={isRegisterOpen} onClose={onToggleRegister} />
       </div>
   );
 };

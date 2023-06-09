@@ -1,0 +1,20 @@
+.checkbox {
+    width: 26px;
+    height: 26px;
+    position: relative;
+    transition: .2s ease-in;
+    cursor: pointer;
+    background: inherit;
+    border: 2px solid var(--color-inverted);
+}
+
+.hoverIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.isOnHover {
+    display: block;
+}

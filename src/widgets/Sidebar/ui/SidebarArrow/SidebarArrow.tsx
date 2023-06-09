@@ -16,8 +16,6 @@ interface SidebarArrowProps {
 export const SidebarArrow: FC<SidebarArrowProps> = ({ className, collapsed, onClick }) => {
   const theme = useTheme();
 
-    console.log(collapsed)
-
   const mods: Record<string, boolean | undefined> = {
     [styles.opened]: !collapsed,
     [styles.closed]: collapsed,

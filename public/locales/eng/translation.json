@@ -3,11 +3,17 @@
   "Язык": "English",
   "Главная": "Main",
   "О нас": "About",
+  "Списки задач": "Todo lists",
+  "Профиль": "Profile",
   "Страница не найдена": "Page not found",
   "Обновить страницу": "Reload page",
   "Вход": "Sign In",
   "Имя": "Name",
   "Авторизация": "Sign In",
   "Вы ввели неверный логин или пароль": "You typed invalid login or password",
-  "Выйти": "Log out"
+  "Выйти": "Log out",
+  "Регистрация": "Sign Up",
+  "Язык интерфейса": "Language",
+  "Светлая тема": "Light theme",
+  "Темная тема": "Dark theme"
 }

@@ -10,6 +10,7 @@ import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynami
 
 import { useTranslation } from 'react-i18next';
 
+import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { getRegisterEmail } from '../../model/selectors/getRegisterEmail/getRegisterEmail';
 import { getRegisterPassword } from '../../model/selectors/getRegisterPassword/getRegisterPassword';
 import { getRegisterIsLoading } from '../../model/selectors/getRegisterIsLoading/getRegisterIsLoading';
@@ -58,6 +59,8 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
+          <Text theme={TextTheme.CLEAR} className={styles.title} title={t('Регистрация')} />
+          {error && <Text theme={TextTheme.ERROR} text={error} />}
           <div className={styles.inputWrapper}>
               <Input
                   tabIndex={-1}

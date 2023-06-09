@@ -19,4 +19,8 @@ export const SidebarItemsList: SidebarItemType[] = [
     path: RoutePath.profile,
     text: 'Профиль',
   },
+  {
+    path: RoutePath.todo,
+    text: 'Списки задач',
+  },
 ];

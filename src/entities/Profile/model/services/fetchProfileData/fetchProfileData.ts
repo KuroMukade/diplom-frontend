@@ -9,7 +9,6 @@ export const fetchProfileData = createAsyncThunk<Profile, void, ThunkConfig<stri
     const { extra, rejectWithValue } = thunkApi;
     try {
       const response = await extra.api.get<Profile>('/user');
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(i18n.t('Не удалось запросить информацию о пользователе'));

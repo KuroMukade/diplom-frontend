@@ -13,6 +13,7 @@ import {
   getProfileError,
   getProfileIsLoading,
   getProfileReadonly,
+  getProfileForm,
   profileActions,
   profileReducer,
 } from 'entities/Profile';
@@ -20,8 +21,9 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 
 import { useSelector } from 'react-redux';
-import styles from './ProfilePage.module.scss';
 import ProfielPageHeader from './ProfilePageHeader/ProfiePageHeader';
+
+import styles from './ProfilePage.module.scss';
 
 const reducers: ReducersList = {
   profile: profileReducer,
@@ -29,23 +31,21 @@ const reducers: ReducersList = {
 
 const ProfilePage: FC = () => {
   useDynamicModuleLoader('profile', reducers, false);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProfileData());
   }, [dispatch]);
 
-  const data = useSelector(getProfileData);
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
+  const formData = useSelector(getProfileForm);
   const readonly = useSelector(getProfileReadonly);
+  const data = useSelector(getProfileData);
 
   const onChangeEmail = useCallback((value?: string) => {
     dispatch(profileActions.updateProfile({ email: value || '' }));
-  }, [dispatch]);
-
-  const onChangePassword = useCallback((value?: string) => {
-    dispatch(profileActions.updateProfile({ password: value || '' }));
   }, [dispatch]);
 
   return (
@@ -53,10 +53,9 @@ const ProfilePage: FC = () => {
           <ProfielPageHeader />
           <ProfileCard
               onChangeEmail={onChangeEmail}
-              onChangePassword={onChangePassword}
               isLoading={isLoading}
               error={error}
-              data={data}
+              data={formData}
               readonly={readonly}
           />
       </div>
