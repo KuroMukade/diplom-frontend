@@ -1,3 +1,5 @@
+import logo from 'shared/assets/images/taskmate.png';
+
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -41,6 +43,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   if (authData) {
     return (
         <div className={classNames(styles.navbar, {}, [className])}>
+            <img className={styles.logo} src={logo} alt="taskmate-logo" />
             <Button
                 growthColor={GrowthColor.PRIMARY}
                 theme={ThemeButton.OUTLINE}
@@ -55,18 +58,23 @@ export const Navbar = ({ className }: NavbarProps) => {
 
   return (
       <div className={classNames(styles.navbar, {}, [className])}>
-          <Button
-              theme={ThemeButton.FILL}
-              onClick={onToggleRegister}
-          >
-              {t('Регистрация')}
-          </Button>
-          <Button
-              theme={ThemeButton.OUTLINE}
-              onClick={onToggleAuth}
-          >
-              {t('Вход')}
-          </Button>
+          <div className={styles.logo}>
+              <img src={logo} alt="taskmate-logo" />
+          </div>
+          <div className={styles.btns}>
+              <Button
+                  theme={ThemeButton.FILL}
+                  onClick={onToggleRegister}
+              >
+                  {t('Регистрация')}
+              </Button>
+              <Button
+                  theme={ThemeButton.OUTLINE}
+                  onClick={onToggleAuth}
+              >
+                  {t('Вход')}
+              </Button>
+          </div>
           <LoginModal isOpen={isAuthOpen} onClose={onToggleAuth} />
           <RegisterModal isOpen={isRegisterOpen} onClose={onToggleRegister} />
       </div>

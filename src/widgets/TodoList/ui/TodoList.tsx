@@ -15,6 +15,8 @@ import { getTodoListError } from '../models/selectors/getTodoListError/getTodoLi
 
 import styles from './TodoList.module.scss';
 import { todoListReducer } from '../models/slice/todoListSlice';
+import { Text } from 'shared/ui/Text/Text';
+import { useTranslation } from 'react-i18next';
 
 const reducers: ReducersList = {
   todoList: todoListReducer,
@@ -25,6 +27,7 @@ interface TodoListProps {
 }
 
 export const TodoList: FC<TodoListProps> = ({ className }) => {
+  const {t} = useTranslation();
   useDynamicModuleLoader('todoList', reducers, false);
 
   const dispatch = useAppDispatch();
@@ -48,7 +51,7 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
   if (error) {
     return (
         <div className={classNames(styles.wrapper, {}, [className])}>
-            <Loader />
+            <Text text={t('Попробуйте перезагрузить страницу')} title={t('Произошла ошибка')} />
         </div>
     );
   }

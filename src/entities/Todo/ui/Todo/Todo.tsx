@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
@@ -15,6 +14,8 @@ import { getTodoIsLoading } from 'entities/Todo/model/selectors/getTodoIsLoading
 import { getTodoError } from 'entities/Todo/model/selectors/getTodoError/getTodoError';
 import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
 import { todoReducer } from 'entities/Todo/model/todoSlice/todoSlice';
+import { getTodoReadonly } from 'entities/Todo/model/selectors/getTodoReadonly/getTodoReadonly';
+
 import styles from './Todo.module.scss';
 
 interface TodoProps {
@@ -29,7 +30,6 @@ const reducers: ReducersList = {
 
 export const Todo: FC<TodoProps> = ({ className, title, id }) => {
   useDynamicModuleLoader('todo', reducers, false);
-  const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
@@ -40,8 +40,7 @@ export const Todo: FC<TodoProps> = ({ className, title, id }) => {
   const tasks = useSelector(getTodoTasks);
   const isLoading = useSelector(getTodoIsLoading);
   const error = useSelector(getTodoError);
-
-  console.log(id);
+  const readonly = useSelector(getTodoReadonly);
 
   if (isLoading) {
     return (
@@ -53,10 +52,14 @@ export const Todo: FC<TodoProps> = ({ className, title, id }) => {
 
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
-          {title}
+          <h4 className={styles.todoTitle}>{title}</h4>
           <div className={styles.tasksWrapper}>
               {tasks && tasks.map((task, index) => (
-                  <TaskComponent key={task.id} data={task} />
+                  <TaskComponent
+                      readonly={readonly}
+                      key={task.id}
+                      data={task}
+                  />
               ))}
           </div>
       </div>
