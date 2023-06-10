@@ -5,6 +5,10 @@ import { ProfilePage } from 'pages/ProfilePage';
 import { TodoPage } from 'pages/TodoPage';
 import { RouteProps } from 'react-router-dom';
 
+export type AppRoutesProps = RouteProps & {
+  authOnly?: boolean;
+}
+
 export enum AppRoutes {
   MAIN = 'main',
   ABOUT = 'about',
