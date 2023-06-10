@@ -59,6 +59,9 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-underscore-dangle': 'off',
     'linebreak-style': ['error', 'windows'],
+    'arrow-body-style': ['error', 'as-needed',
+      { requireReturnForObjectLiteral: true },
+    ],
     'i18next/no-literal-string': [
       'error',
       {
