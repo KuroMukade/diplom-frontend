@@ -7,14 +7,14 @@ import DarkIcon from 'shared/assets/icons/dark.svg';
 
 import { useTranslation } from 'react-i18next';
 import { KeyboardEvent } from 'react';
-import styles from './ThemeSwithcer.module.scss';
+import styles from './ThemeSwitcher.module.scss';
 
-interface ThemeSwithcerProps {
+interface ThemeSwitcherProps {
    className?: string;
    collapsed?: boolean;
 }
 
-export const ThemeSwithcer = ({ className, collapsed }: ThemeSwithcerProps) => {
+export const ThemeSwitcher = ({ className, collapsed }: ThemeSwitcherProps) => {
   const { theme, toggleTheme } = useTheme();
 
   const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {

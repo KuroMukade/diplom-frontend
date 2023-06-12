@@ -1,17 +1,15 @@
 .navbar {
+    margin-bottom: 76px;
+    position: fixed;
     width: 100%;
     height: var(--navbar-height);
     border-bottom: var(--color-primary) 2px solid;
     background-color: var(--bg-color);
-    gap: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 24px;
-}
-
-.logo {
-
+    gap: 16px;
 }
 
 .btns {

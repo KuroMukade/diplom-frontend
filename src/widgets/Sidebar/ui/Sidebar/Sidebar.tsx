@@ -1,23 +1,44 @@
-import React, { FC, useMemo, useState } from 'react';
+import editIcon from 'shared/assets/icons/edit.svg';
+import editWhiteIcon from 'shared/assets/icons/edit-white.svg';
+
+import React, {
+  FC, useCallback, useMemo, useState,
+} from 'react';
 
 import { classNames } from 'shared/lib/classNames';
-import { Button } from 'shared/ui/Button/Button';
+import { Button, ThemeButton } from 'shared/ui/Button/Button';
 import { LangSwitcher } from 'widgets/LangSwitcher';
-import { ThemeSwithcer } from 'widgets/ThemeSwitcher';
+import { ThemeSwitcher } from 'widgets/ThemeSwitcher';
 
 import { useTranslation } from 'react-i18next';
 
-import { SidebarItemsList } from 'widgets/Sidebar/model/items';
-import styles from './Sidebar.module.scss';
+import { useSelector } from 'react-redux';
+
+import { Theme, useTheme } from 'shared/contexts/theme';
+
+import { getUserInited } from 'entities/User';
+
+import { CreateTodoModal } from 'features/CreateTodo';
+
 import { SidebarItem } from '../SidebarItem/SidebarItem';
 import { SidebarArrow } from '../SidebarArrow/SidebarArrow';
+
+import { SidebarItemsList } from '../../model/items';
+
+import styles from './Sidebar.module.scss';
 
 interface SidebarProps {
   className?: string;
 }
 
 export const Sidebar: FC<SidebarProps> = ({ className }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
+
+  const [isCreateTodoOpen, setCreateTodoOpen] = useState(false);
+
+  const inited = useSelector(getUserInited);
+
+  const { theme } = useTheme();
 
   const { t } = useTranslation();
 
@@ -25,9 +46,19 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
     setCollapsed((prev) => !prev);
   };
 
-  const linkList = useMemo(() => SidebarItemsList.map((item) => (
-      <SidebarItem item={item} collapsed={collapsed} key={item.path} />
-  )), [collapsed]);
+  const linkList = useMemo(() => SidebarItemsList.map((item) => {
+    if (item.authOnly && !inited) {
+      return null;
+    }
+
+    return (
+        <SidebarItem item={item} collapsed={collapsed} key={item.path} />
+    );
+  }), [collapsed, inited]);
+
+  const onToggleCreateTodo = useCallback(() => {
+    setCreateTodoOpen((prev) => !prev);
+  }, []);
 
   return (
       <div
@@ -36,13 +67,20 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
       >
           <nav className={styles.nav}>
               {linkList}
+              {inited && (
+              <Button onClick={onToggleCreateTodo} theme={ThemeButton.CLEAR} className={styles.createTodoBtn}>
+                  <span className={styles.todoBtnText}>{t('Создать todo')}</span>
+                  {!collapsed && (
+                  <img src={theme === Theme.DARK ? editIcon : editWhiteIcon} alt={t('Создать todo')} />
+                  )}
+              </Button>
+              )}
           </nav>
           <Button
               data-testid="sidebar-toggle"
               type="button"
               className={styles.toggle}
               onClick={onToggle}
-          // eslint-disable-next-line i18next/no-literal-string
           >
               <SidebarArrow collapsed={collapsed} />
           </Button>
@@ -51,8 +89,9 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
                 classNames(styles.switchers, { [styles.collapsedSwitchers]: collapsed }, [className])
             }
           >
-              <ThemeSwithcer collapsed={collapsed} />
+              <ThemeSwitcher collapsed={collapsed} />
               <LangSwitcher collapsed={collapsed} />
+              {inited && <CreateTodoModal isOpen={isCreateTodoOpen} onClose={onToggleCreateTodo} />}
           </div>
       </div>
   );

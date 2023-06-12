@@ -15,5 +15,12 @@
   "Регистрация": "Sign Up",
   "Язык интерфейса": "Language",
   "Светлая тема": "Light theme",
-  "Темная тема": "Dark theme"
+  "Темная тема": "Dark theme",
+  "Вернуться на главную": "Return to main page",
+  "Не удалось создать todo": "Unable to create todo",
+  "Ошибка": "Error",
+  "Название todo": "Todo title",
+  "Создать": "Create",
+  "Создать todo": "Create todo",
+  "Создание todo": "Create todo"
 }

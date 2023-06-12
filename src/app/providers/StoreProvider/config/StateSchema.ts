@@ -8,16 +8,18 @@ import { LoginSchema } from 'features/AuthByUsername';
 import { Dispatch, CombinedState } from 'redux';
 import { NavigateOptions, To } from 'react-router-dom';
 import { RegisterSchema } from 'features/RegisterByEmail';
-import { TodoSchema } from 'entities/Todo';
+import { CreateTodoSchema } from 'features/CreateTodo';
 import { TodoListSchema } from 'widgets/TodoList';
+import { TodoSchema } from 'entities/Todo';
 
 export interface StateSchema {
     user: UserSchema;
+    todo: TodoSchema;
     // Async reducers
     loginForm?: LoginSchema;
     registerForm?: RegisterSchema;
     profile?: ProfileSchema;
-    todo?: TodoSchema;
+    createTodo?: CreateTodoSchema;
     todoList?: TodoListSchema;
 }
 

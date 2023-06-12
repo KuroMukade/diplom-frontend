@@ -1,7 +1,13 @@
 .notFoundPage {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font: var(--font-l);
-    height: 100%;
+    overflow: hidden;
+    height: 90vh;
+}
+
+.btn {
+    margin-top: 24px;
 }
