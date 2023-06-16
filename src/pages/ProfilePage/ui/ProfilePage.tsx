@@ -42,7 +42,6 @@ const ProfilePage: FC = () => {
   const error = useSelector(getProfileError);
   const formData = useSelector(getProfileForm);
   const readonly = useSelector(getProfileReadonly);
-  const data = useSelector(getProfileData);
 
   const onChangeEmail = useCallback((value?: string) => {
     dispatch(profileActions.updateProfile({ email: value || '' }));

@@ -1,25 +1,35 @@
+import { AxiosInstance } from 'axios';
+
+import { NavigateOptions, To } from 'react-router-dom';
+
 import {
   AnyAction, EnhancedStore, ReducersMapObject, Reducer,
 } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+
+import { Dispatch, CombinedState } from 'redux';
+
 import { ProfileSchema } from 'entities/Profile';
 import { UserSchema } from 'entities/User';
+import { TodoSchema } from 'entities/Todo';
+import { TaskSchema } from 'entities/Task';
+
 import { LoginSchema } from 'features/AuthByUsername';
-import { Dispatch, CombinedState } from 'redux';
-import { NavigateOptions, To } from 'react-router-dom';
 import { RegisterSchema } from 'features/RegisterByEmail';
 import { CreateTodoSchema } from 'features/CreateTodo';
+import { CreateTaskSchema } from 'features/CreateTask';
+
 import { TodoListSchema } from 'widgets/TodoList';
-import { TodoSchema } from 'entities/Todo';
 
 export interface StateSchema {
     user: UserSchema;
     todo: TodoSchema;
+    task: TaskSchema;
     // Async reducers
     loginForm?: LoginSchema;
     registerForm?: RegisterSchema;
     profile?: ProfileSchema;
     createTodo?: CreateTodoSchema;
+    createTask?: CreateTaskSchema;
     todoList?: TodoListSchema;
 }
 

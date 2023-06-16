@@ -11,6 +11,7 @@ import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynami
 import { Text } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 // import { CreateTodo } from 'features/CreateTodo';
+import { TodoComponent } from 'entities/Todo';
 import { fetchTodoListData } from '../models/services/fetchTodoListData/fetchTodoListData';
 import { getTodoListData } from '../models/selectors/getTodoListData/getTodoListData';
 import { getTodoListIsLoading } from '../models/selectors/getTodoListIsLoading/getTodoListIsLoading';
@@ -33,33 +34,40 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
 
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchTodoListData());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchTodoListData());
+  }, [dispatch]);
 
-  // const todoItems = useSelector(getTodoListData);
-  // const isLoading = useSelector(getTodoListIsLoading);
-  // const error = useSelector(getTodoListError);
+  const todoItems = useSelector(getTodoListData);
+  const isLoading = useSelector(getTodoListIsLoading);
+  const error = useSelector(getTodoListError);
 
-  // if (isLoading) {
-  //   return (
-  //       <div className={classNames(styles.wrapper, {}, [className])}>
-  //           <Loader />
-  //       </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+        <div className={classNames(styles.wrapper, {}, [className])}>
+            <Loader />
+        </div>
+    );
+  }
 
-  // if (error) {
-  //   return (
-  //       <div className={classNames(styles.wrapper, {}, [className])}>
-  //           <Text text={t('Попробуйте перезагрузить страницу')} title={t('Произошла ошибка')} />
-  //       </div>
-  //   );
-  // }
+  if (error) {
+    return (
+        <div className={classNames(styles.wrapper, {}, [className])}>
+            <Text text={t('Попробуйте перезагрузить страницу')} title={t('Произошла ошибка')} />
+        </div>
+    );
+  }
 
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
-          {/* <CreateTodo /> */}
+          {todoItems?.map((todo) => (
+              <TodoComponent
+                  className={styles.todo}
+                  title={todo.title}
+                  id={todo._id}
+                  key={todo._id}
+              />
+          ))}
       </div>
   );
 };

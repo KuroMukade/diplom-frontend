@@ -5,12 +5,12 @@ import { classNames } from 'shared/lib/classNames';
 
 import { Input } from 'shared/ui/Input/Input';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
+import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
 
 import { useTranslation } from 'react-i18next';
 
-import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { getRegisterEmail } from '../../model/selectors/getRegisterEmail/getRegisterEmail';
 import { getRegisterPassword } from '../../model/selectors/getRegisterPassword/getRegisterPassword';
 import { getRegisterIsLoading } from '../../model/selectors/getRegisterIsLoading/getRegisterIsLoading';

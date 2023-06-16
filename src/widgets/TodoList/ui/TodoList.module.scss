@@ -1,5 +1,22 @@
 .wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: calc(100% - 20px);
+}
+
+.todo {
+    padding: 24px;
+    height: 260px;
+    width: 300px;
+    border-radius: 4px;
+    position: relative;
+    transition: .2s ease-in-out all;
+    border: 1px solid var(--color-inverted);
+    transition-property: box-shadow, color, transform, background-color;
+
+    &:hover {
+        transform: translate(-6px, -6px);
+        box-shadow: var(--color-inverted) 6px 6px 0;
+    }
 }

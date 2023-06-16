@@ -1,0 +1,15 @@
+.todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text {
+    color: var(--color-inverted);
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,10 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Task, TaskSchema } from '../types/task';
+import { Task, TaskSchema } from '../types/taskSchema';
+import { fetchTasks } from '../services/fetchTasks/fetchTasks';
 
 const initialState: TaskSchema = {
-  readonly: true,
   isLoading: false,
-  data: undefined,
   error: undefined,
 };
 
@@ -12,40 +11,29 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    setReadonly: (state, action: PayloadAction<boolean>) => {
-      state.readonly = action.payload;
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
-    updateTask: (state, action: PayloadAction<Task>) => {
-      state.form = {
-        ...state.data,
-        ...action.payload,
-      };
-    },
-    cancelEdit: (state) => {
-      state.readonly = true;
-      state.form = state.data;
+    setError: (state, action) => {
+      state.error = action.payload;
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchTaskData.pending, (state) => {
+      .addCase(fetchTasks.pending, (state) => {
         state.error = undefined;
         state.isLoading = true;
       })
-      .addCase(
-        fetchTaskData.fulfilled,
-        (state, action: PayloadAction<Task>) => {
-          state.isLoading = false;
-          state.data = action.payload;
-          state.form = action.payload;
-        },
-      )
-      .addCase(fetchTaskData.rejected, (state, action) => {
-        state.error = action.payload;
+      .addCase(fetchTasks.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { actions: taskActions } = taskSlice;
 export const { reducer: taskReducer } = taskSlice;
+export const { actions: taskActions } = taskSlice;

@@ -4,6 +4,7 @@ import { $api } from 'shared/api/api';
 import { NavigateOptions, To } from 'react-router-dom';
 import { Reducer } from 'redux';
 import { todoReducer } from 'entities/Todo';
+import { taskReducer } from 'entities/Task';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { createReducerManager } from './reducerManager';
 
@@ -16,6 +17,7 @@ export function createReduxStore(
     ...asyncReducers,
     user: userReducer,
     todo: todoReducer,
+    task: taskReducer,
   };
 
   const reducerManager = createReducerManager(rootReducers);

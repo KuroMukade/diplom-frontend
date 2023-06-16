@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, memo } from 'react';
+import { ButtonHTMLAttributes, memo } from 'react';
 
 import { classNames } from 'shared/lib/classNames';
 
@@ -7,7 +7,8 @@ import styles from './Button.module.scss';
 export enum ThemeButton {
   CLEAR = 'clear',
   OUTLINE = 'outlined',
-  FILL = 'fill'
+  FILL = 'fill',
+  ERROR = 'error',
 }
 
 export enum ButtonSize {
