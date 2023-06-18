@@ -61,7 +61,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   }
 
   return (
-      <div className={classNames(styles.navbar, {}, [className])}>
+      <header className={classNames(styles.navbar, {}, [className])}>
           <div className={styles.logo}>
               <Link to="/">
                   {/* eslint-disable-next-line i18next/no-literal-string */}
@@ -84,6 +84,6 @@ export const Navbar = ({ className }: NavbarProps) => {
           </div>
           <LoginModal isOpen={isAuthOpen} onClose={onToggleAuth} />
           <RegisterModal isOpen={isRegisterOpen} onClose={onToggleRegister} />
-      </div>
+      </header>
   );
 };

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
-import { Text } from 'shared/ui/Text/Text';
+import { Text, TextSize } from 'shared/ui/Text/Text';
 import { Loader } from 'shared/ui/Loader/Loader';
 import { Button } from 'shared/ui/Button/Button';
 
@@ -70,20 +70,23 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
     );
   }
 
+  if (!isLoading && !tasks) {
+    return (
+        <div className={styles.noTasks}>
+            <p>{t('Нет задач')}</p>
+            <Button onClick={onCreateButtonClick}>{t('Создать задачу')}</Button>
+        </div>
+    );
+  }
+
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
-          <Text title={todo?.title} />
-          {!isLoading && tasks && (
-              <div className={styles.noTasks}>
-                  <p>{t('Нет задач')}</p>
-                  <Button onClick={onCreateButtonClick}>{t('Создать задачу')}</Button>
-              </div>
-          )}
+          <Text textSize={TextSize.LARGE} title={todo?.title} />
           {tasks && tasks?.map((task) => (
               <TaskComponent
                   key={task._id}
                   taskId={task._id}
-                  todoId={todo._id}
+                  todoId={todo?._id!}
                   title={task.title}
                   text={task.text}
                   priority={task.priority}

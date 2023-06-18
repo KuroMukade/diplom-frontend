@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { classNames } from 'shared/lib/classNames';
@@ -12,6 +12,7 @@ import { Text } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 // import { CreateTodo } from 'features/CreateTodo';
 import { TodoComponent } from 'entities/Todo';
+import { deleteTodo } from 'widgets/TodoList/models/services/deleteTodo/deleteTodo';
 import { fetchTodoListData } from '../models/services/fetchTodoListData/fetchTodoListData';
 import { getTodoListData } from '../models/selectors/getTodoListData/getTodoListData';
 import { getTodoListIsLoading } from '../models/selectors/getTodoListIsLoading/getTodoListIsLoading';
@@ -42,6 +43,10 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
   const isLoading = useSelector(getTodoListIsLoading);
   const error = useSelector(getTodoListError);
 
+  const onTodoDelete = useCallback((id: string) => {
+    dispatch(deleteTodo({ todoId: id }));
+  }, [dispatch]);
+
   if (isLoading) {
     return (
         <div className={classNames(styles.wrapper, {}, [className])}>
@@ -63,6 +68,7 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
           {todoItems?.map((todo) => (
               <TodoComponent
                   className={styles.todo}
+                  onDelete={onTodoDelete}
                   title={todo.title}
                   id={todo._id}
                   key={todo._id}

@@ -1,0 +1,21 @@
+.task {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid var(--color-inverted);
+    color: var(--color-inverted);
+    border-radius: 4px;
+    padding: 24px;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.text {
+    font-size: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+}

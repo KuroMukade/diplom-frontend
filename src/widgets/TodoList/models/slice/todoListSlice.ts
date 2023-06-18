@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Todo } from 'entities/Todo';
 import { TodoListSchema } from '../types/todolist';
 import { fetchTodoListData } from '../services/fetchTodoListData/fetchTodoListData';
+import { deleteTodo } from '../services/deleteTodo/deleteTodo';
 
 const initialState: TodoListSchema = {
   isLoading: false,
@@ -33,6 +34,17 @@ const todoListSlice = createSlice({
       .addCase(fetchTodoListData.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+      .addCase(deleteTodo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(deleteTodo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
