@@ -67,7 +67,6 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
     );
   }
 
-
   if (isLoading || isTasksLoading) {
     return (
         <div className={classNames(styles.wrapper, {}, [className])}>

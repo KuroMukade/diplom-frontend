@@ -21,7 +21,6 @@ import { getTaskFormError } from '../../model/selectors/getTaskFormError/getTask
 
 import styles from './CreateTaskForm.module.scss';
 import { createTask } from '../../model/services/createTask/createTask';
-import { setPriority } from 'os';
 
 interface CreateTaskFormProps {
    className?: string;
