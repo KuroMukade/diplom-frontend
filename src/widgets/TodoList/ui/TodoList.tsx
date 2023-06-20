@@ -8,7 +8,7 @@ import { Loader } from 'shared/ui/Loader/Loader';
 
 import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
 // import { TodoItem } from 'entities/Todo';
-import { Text } from 'shared/ui/Text/Text';
+import { Text, TextSize, TextTheme } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 // import { CreateTodo } from 'features/CreateTodo';
 import { TodoComponent } from 'entities/Todo';
@@ -51,6 +51,19 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
     return (
         <div className={classNames(styles.wrapper, {}, [className])}>
             <Loader />
+        </div>
+    );
+  }
+
+  if (error === t('Не удалось запросить список тудушек')) {
+    return (
+        <div className={classNames(styles.wrapper, {}, [className])}>
+            <Text
+                textSize={TextSize.LARGE}
+                theme={TextTheme.ERROR}
+                // eslint-disable-next-line max-len
+                text={t('У вас еще нет созданных туду. Для начала работы необходимо иметь хотя бы 1 список дел')}
+            />
         </div>
     );
   }

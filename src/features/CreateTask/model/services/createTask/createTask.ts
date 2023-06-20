@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 
-import { Task } from 'entities/Task';
+import { Task, taskActions } from 'entities/Task';
 
 import { i18n } from 'shared/config/i18n';
 
@@ -15,7 +15,7 @@ interface CreateTaskProps {
 export const createTask = createAsyncThunk<Task, CreateTaskProps, ThunkConfig<string>>(
   'task/createTask',
   async (data, thunkApi) => {
-    const { extra, rejectWithValue } = thunkApi;
+    const { dispatch, extra, rejectWithValue } = thunkApi;
     try {
       const response = await extra.api.post<Task>(
         `/todos/${data.todoId}/tasks`,
@@ -29,6 +29,9 @@ export const createTask = createAsyncThunk<Task, CreateTaskProps, ThunkConfig<st
       if (!response.data) {
         throw new Error();
       }
+
+      console.log(response);
+      dispatch(taskActions.addTask(response.data));
 
       return response.data;
     } catch (error) {

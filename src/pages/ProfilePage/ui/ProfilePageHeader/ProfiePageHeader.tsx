@@ -25,6 +25,7 @@ const ProfilePageHeader: FC<ProfilePageHeaderProps> = () => {
 
   const onSave = useCallback(() => {
     dispatch(updateProfileData());
+    dispatch(profileActions.setReadonly(true));
   }, [dispatch]);
 
   const { t } = useTranslation('profile');

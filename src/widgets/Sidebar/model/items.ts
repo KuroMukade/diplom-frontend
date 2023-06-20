@@ -14,11 +14,6 @@ export const SidebarItemsList: SidebarItemType[] = [
     authOnly: false,
   },
   {
-    path: RoutePath.about,
-    text: 'О нас',
-    authOnly: false,
-  },
-  {
     path: RoutePath.profile,
     text: 'Профиль',
     authOnly: true,

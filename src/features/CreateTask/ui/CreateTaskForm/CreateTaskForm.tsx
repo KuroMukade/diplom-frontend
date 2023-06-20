@@ -6,10 +6,12 @@ import { classNames } from 'shared/lib/classNames';
 
 import { Input } from 'shared/ui/Input/Input';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
-import { Text, TextTheme } from 'shared/ui/Text/Text';
+import { Text, TextSize, TextTheme } from 'shared/ui/Text/Text';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { ReducersList, useDynamicModuleLoader } from 'shared/lib/hooks/useDynamicModuleLoader';
 
+import SelectComponent from 'shared/ui/Select/Select';
+import { SelectOptions } from 'shared/lib/select';
 import { createTaskActions, createTaskReducer } from '../../model/slice/createTaskSlice';
 import { getTaskFormTitle } from '../../model/selectors/getTaskFormTitle/getTaskFormTitle';
 import { getTaskFormText } from '../../model/selectors/getTaskFormText/getTaskFormText';
@@ -19,6 +21,7 @@ import { getTaskFormError } from '../../model/selectors/getTaskFormError/getTask
 
 import styles from './CreateTaskForm.module.scss';
 import { createTask } from '../../model/services/createTask/createTask';
+import { setPriority } from 'os';
 
 interface CreateTaskFormProps {
    className?: string;
@@ -67,9 +70,29 @@ export const CreateTaskForm = memo(({ className, onSuccess, todoId }: CreateTask
     dispatch(createTaskActions.setPriority(value));
   }, [dispatch]);
 
+  const selectOptions: SelectOptions[] = [
+    {
+      label: 'Маленький',
+      value: 'LOW',
+    },
+    {
+      label: 'Средний',
+      value: 'MEDIUM',
+    },
+    {
+      label: 'Срочно',
+      value: 'HIGH',
+    },
+  ];
+
   return (
       <div className={classNames(styles.wrapper, {}, [className])}>
-          <Text theme={TextTheme.CLEAR} className={styles.title} title={t('Создание задачи')} />
+          <Text
+              textSize={TextSize.LARGE}
+              theme={TextTheme.CLEAR}
+              className={styles.title}
+              title={t('Создание задачи')}
+          />
           {error && <Text theme={TextTheme.ERROR} text={error} />}
           <div className={styles.inputWrapper}>
               <Input
@@ -82,10 +105,15 @@ export const CreateTaskForm = memo(({ className, onSuccess, todoId }: CreateTask
                   value={text}
                   placeholder={t('Содержимое задачи')}
               />
-              <Input
+              {/* <Input
                   onChange={onChangePriority}
                   value={priority}
                   placeholder={t('Приоритет задачи')}
+              /> */}
+              <SelectComponent
+                  defaultValue={{ label: 'Маленький', value: 'LOW' }}
+                  selectOptions={selectOptions}
+                  onChange={(item) => onChangePriority(item.value)}
               />
           </div>
           <Button

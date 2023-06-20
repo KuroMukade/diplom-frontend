@@ -7,6 +7,7 @@
   "Профиль": "Profile",
   "Страница не найдена": "Page not found",
   "Обновить страницу": "Reload page",
+  "Войти": "Sign In",
   "Вход": "Sign In",
   "Имя": "Name",
   "Авторизация": "Sign In",
@@ -23,5 +24,6 @@
   "Создать": "Create",
   "Создать todo": "Create todo",
   "Создание todo": "Create todo",
-  "Войти": "Sign In"
+  "Войти": "Sign In",
+  "У вас еще нет созданных туду. Для начала работы необходимо иметь хотя бы 1 список дел": "You haven't any todos yet. To start work with you need to create at least one"
 }

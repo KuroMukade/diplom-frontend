@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 
 import { Theme, useTheme } from 'shared/contexts/theme';
 
-import { getUserInited } from 'entities/User';
+import { getUserAuthData, getUserInited } from 'entities/User';
 
 import { CreateTodoModal } from 'features/CreateTodo';
 
@@ -36,7 +36,7 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
 
   const [isCreateTodoOpen, setCreateTodoOpen] = useState(false);
 
-  const inited = useSelector(getUserInited);
+  const authData = useSelector(getUserAuthData);
 
   const { theme } = useTheme();
 
@@ -47,14 +47,14 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
   };
 
   const linkList = useMemo(() => SidebarItemsList.map((item) => {
-    if (item.authOnly && !inited) {
+    if (item.authOnly && !authData) {
       return null;
     }
 
     return (
         <SidebarItem item={item} collapsed={collapsed} key={item.path} />
     );
-  }), [collapsed, inited]);
+  }), [collapsed, authData]);
 
   const onToggleCreateTodo = useCallback(() => {
     setCreateTodoOpen((prev) => !prev);
@@ -67,7 +67,7 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
       >
           <nav className={styles.nav}>
               {linkList}
-              {inited && (
+              {authData && (
               <Button onClick={onToggleCreateTodo} theme={ThemeButton.CLEAR} className={styles.createTodoBtn}>
                   <span className={styles.todoBtnText}>{t('Создать todo')}</span>
                   {!collapsed && (
@@ -91,7 +91,7 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
           >
               <ThemeSwitcher collapsed={collapsed} />
               <LangSwitcher collapsed={collapsed} />
-              {inited && <CreateTodoModal isOpen={isCreateTodoOpen} onClose={onToggleCreateTodo} />}
+              {authData && <CreateTodoModal isOpen={isCreateTodoOpen} onClose={onToggleCreateTodo} />}
           </div>
       </div>
   );

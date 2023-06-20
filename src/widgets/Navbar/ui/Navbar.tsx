@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LoginModal } from 'features/AuthByUsername';
 
-import { getUserAuthData, userActions } from 'entities/User';
+import { getUserAuthData, logout, userActions } from 'entities/User';
 
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
 import { classNames } from 'shared/lib/classNames';
@@ -38,7 +38,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   }, []);
 
   const onLogout = useCallback(() => {
-    dispatch(userActions.logout());
+    dispatch(logout(true));
   }, [dispatch]);
 
   if (authData) {

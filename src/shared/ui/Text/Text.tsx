@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { classNames } from 'shared/lib/classNames';
 
 import styles from './Text.module.scss';
+import { Theme } from 'shared/contexts/theme';
 
 export enum TextTheme {
     PRIMARY = 'primary',
@@ -25,7 +26,7 @@ interface TextProps {
 }
 
 export const Text: FC<TextProps> = ({
-  className, title, text, theme, textSize = TextSize.SMALL,
+  className, title, text, theme = Theme.LIGHT, textSize = TextSize.SMALL,
 }) => {
   const mods: Record<string, boolean> = {
     [styles[textSize]]: true,

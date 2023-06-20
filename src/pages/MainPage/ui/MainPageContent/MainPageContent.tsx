@@ -1,12 +1,20 @@
+/* eslint-disable max-len */
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, GrowthColor, ThemeButton } from 'shared/ui/Button/Button';
 
+import go from 'shared/assets/icons/go.svg';
+import lightgo from 'shared/assets/icons/go-dark.svg';
+
+import { Theme, useTheme } from 'shared/contexts/theme';
 import styles from './MainPageContent.module.scss';
 
 export const MainPageContent: FC = () => {
   const { t } = useTranslation('main');
+
+  const { theme } = useTheme();
+
   return (
       <main className={styles.wrapper}>
           <div className={styles.main}>
@@ -14,8 +22,7 @@ export const MainPageContent: FC = () => {
                   {t('Организуй свою работу и жизнь, вместе с TaskMate')}
               </h1>
               <p className={styles.desc}>
-                  {t(`Become focused, organized, and calm with TaskMate.
-              The world"s #1 task manager and to-do list app.`)}
+                  {t('Become focused, organized, and calm with TaskMate. The world`s #1 task manager and to-do list app.')}
               </p>
               <Button theme={ThemeButton.OUTLINE} growthColor={GrowthColor.SECONDARY} className={styles.btn}>
                   {t('Начать бесплатно')}
@@ -39,11 +46,12 @@ export const MainPageContent: FC = () => {
                   {t('Оставайтесь на пути, достигайте с легкостью')}
               </h2>
               <p className={styles.stayDesc}>
-                  {t(`Более 30 миллионов человек
-                  организуют миллиарды задач в TaskMate для работы, учебы и личной жизни`)}
+                  {t('Более 30 миллионов человек организуют миллиарды задач в TaskMate для работы, учебы и личной жизни')}
               </p>
               <Link className={styles.link} to="/">
                   {t('Explore')}
+                  {' '}
+                  <img src={theme === Theme.DARK ? lightgo : go} alt="" />
               </Link>
           </div>
       </main>

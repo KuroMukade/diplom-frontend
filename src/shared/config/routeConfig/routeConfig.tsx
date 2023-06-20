@@ -1,4 +1,3 @@
-import { AboutPage } from 'pages/AboutPage';
 import { MainPage } from 'pages/MainPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
@@ -12,7 +11,6 @@ export type AppRoutesProps = RouteProps & {
 
 export enum AppRoutes {
   MAIN = 'main',
-  ABOUT = 'about',
   PROFILE = 'profile',
   TODOS = 'todo',
   TODO = 'todo_id',
@@ -21,7 +19,6 @@ export enum AppRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
-  [AppRoutes.ABOUT]: '/about',
   [AppRoutes.PROFILE]: '/profile',
   [AppRoutes.TODOS]: '/todo',
   [AppRoutes.TODO]: '/todo/:id',
@@ -32,10 +29,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
     path: RoutePath.main,
     element: <MainPage />,
-  },
-  [AppRoutes.ABOUT]: {
-    path: RoutePath.about,
-    element: <AboutPage />,
   },
   [AppRoutes.PROFILE]: {
     path: RoutePath.profile,

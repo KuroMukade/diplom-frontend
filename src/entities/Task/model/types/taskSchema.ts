@@ -1,8 +1,10 @@
+import { SelectValue } from 'shared/lib/select';
+
 export interface Task {
     _id: string;
     title: string;
     text: string;
-    priority: string;
+    priority: SelectValue;
 }
 
 export interface TaskSchema {

@@ -4,10 +4,9 @@ import { i18n } from 'shared/config/i18n';
 import { User } from '../../types/user';
 import { userActions } from '../../slice/userSlice';
 
-export const logout = createAsyncThunk<User, unknown, ThunkConfig<string>>(
-  'login/logout',
-  async (_, thunkApi) => {
-    const { dispatch, extra, rejectWithValue } = thunkApi;
+export const logout = createAsyncThunk<unknown, unknown, ThunkConfig<string>>(
+  'user/logout',
+  async (_, { dispatch, extra, rejectWithValue }) => {
     try {
       const response = await extra.api.post('/logout');
 
@@ -16,7 +15,7 @@ export const logout = createAsyncThunk<User, unknown, ThunkConfig<string>>(
       }
 
       dispatch(userActions.logout());
-      extra.navigate?.('');
+      extra.navigate?.('/', { replace: true });
       return response.data;
     } catch (e) {
       return rejectWithValue(i18n.t('Ошибка при выходе из профиля'));

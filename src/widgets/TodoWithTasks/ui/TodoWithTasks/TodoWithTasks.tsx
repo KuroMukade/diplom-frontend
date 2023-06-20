@@ -1,3 +1,6 @@
+import edit from 'shared/assets/icons/edit.svg';
+import editLight from 'shared/assets/icons/edit-white.svg';
+
 import React, {
   FC, Reducer, useCallback, useEffect, useState,
 } from 'react';
@@ -8,7 +11,7 @@ import { classNames } from 'shared/lib/classNames';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { Loader } from 'shared/ui/Loader/Loader';
-import { Button } from 'shared/ui/Button/Button';
+import { Button, ThemeButton } from 'shared/ui/Button/Button';
 
 import {
   fetchTodoById, getTodoData, getTodoError, getTodoIsLoading,
@@ -20,6 +23,7 @@ import {
 
 import { CreateTaskModal } from 'features/CreateTask';
 
+import { Theme, useTheme } from 'shared/contexts/theme';
 import styles from './TodoWithTasks.module.scss';
 
 interface TodoWithTasksProps {
@@ -31,6 +35,7 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   useEffect(() => {
     dispatch(fetchTodoById({ todoId }));
@@ -62,6 +67,7 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
     );
   }
 
+
   if (isLoading || isTasksLoading) {
     return (
         <div className={classNames(styles.wrapper, {}, [className])}>
@@ -70,11 +76,26 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
     );
   }
 
-  if (!isLoading && !tasks) {
+  if (!isLoading && tasks?.length === 0) {
     return (
-        <div className={styles.noTasks}>
-            <p>{t('Нет задач')}</p>
-            <Button onClick={onCreateButtonClick}>{t('Создать задачу')}</Button>
+        <div className={classNames(styles.wrapper, {}, [className])}>
+            <Text textSize={TextSize.LARGE} title={todo?.title} />
+            <Text textSize={TextSize.LARGE} title={t('Нет задач')} />
+            <div className={styles.noTasks}>
+                <Button
+                    theme={ThemeButton.FILL}
+                    className={styles.btn}
+                    onClick={onCreateButtonClick}
+                >
+                    {t('Создать задачу')}
+                    <img src={theme === Theme.DARK ? edit : editLight} alt="" />
+                </Button>
+            </div>
+            <CreateTaskModal
+                todoId={todoId}
+                isOpen={isCreateTaskOpen}
+                onClose={onCreateButtonClick}
+            />
         </div>
     );
   }
@@ -92,6 +113,16 @@ export const TodoWithTasks: FC<TodoWithTasksProps> = ({ className, todoId }) => 
                   priority={task.priority}
               />
           ))}
+          <div className={styles.noTasks}>
+              <Button
+                  theme={ThemeButton.FILL}
+                  className={styles.btn}
+                  onClick={onCreateButtonClick}
+              >
+                  {t('Создать задачу')}
+                  <img src={theme === Theme.DARK ? edit : editLight} alt="" />
+              </Button>
+          </div>
           <CreateTaskModal
               todoId={todoId}
               isOpen={isCreateTaskOpen}

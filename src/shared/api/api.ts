@@ -13,7 +13,7 @@ export const refreshAccessToken = async () => {
 
   let prevData = localStorage.getItem(USER_LOCALSTORAGE_KEY);
   prevData = JSON.parse(prevData!);
-  prevData.accessToken = refreshData.data.accessToken;
+  // prevData.accessToken = refreshData.data.accessToken;
   localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(prevData));
 
   return {

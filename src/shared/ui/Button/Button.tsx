@@ -32,7 +32,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = memo(({
-  className, theme = ThemeButton.CLEAR, children, disabled, size = ButtonSize.M, growthColor, ...restBtnProps
+  className, theme = ThemeButton.CLEAR, children, disabled, size = ButtonSize.M, growthColor = GrowthColor.DEFAULT, ...restBtnProps
 }: ButtonProps) => {
   const mods: Record<string, boolean | undefined> = {
     [styles[theme]]: true,

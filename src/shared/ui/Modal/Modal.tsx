@@ -20,10 +20,6 @@ interface ModalProps {
 export const Modal: FC<ModalProps> = ({
   className, children, onClose, isOpen, tabIndex, lazy = true,
 }) => {
-  const mods: Record<string, boolean> = {
-    [styles.opened]: isOpen,
-  };
-
   const [isMounted, setMounted] = useState(false);
 
   const { theme } = useTheme();
@@ -39,10 +35,10 @@ export const Modal: FC<ModalProps> = ({
   };
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' && isOpen) {
       closeHandler();
     }
-  }, [closeHandler]);
+  }, [closeHandler, isOpen]);
 
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
@@ -64,7 +60,12 @@ export const Modal: FC<ModalProps> = ({
 
   return (
       <Portal>
-          <div tabIndex={tabIndex} className={classNames(styles.modal, mods, [className, theme])}>
+          <div
+              tabIndex={tabIndex}
+              className={classNames(styles.modal, {
+                [styles.opened]: isOpen,
+              }, [className, theme])}
+          >
               <div className={styles.overlay} onClick={closeHandler}>
                   <div
                       onClick={onContentClick}
