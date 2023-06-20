@@ -2,8 +2,9 @@
   "name": "ulbi-course",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://kuromukade.github.io/diplom-frontend/",
+  "homepage": "z183.pautinaweb.ru/diplom/",
   "main": "index.js",
+  "baseUrl": "z183.pautinaweb.ru/diplom/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
